@@ -42,15 +42,29 @@
             textBoxChars = new TextBox();
             buttonSave = new Button();
             toolTip1 = new ToolTip(components);
+            numericUpDownBytesLine = new NumericUpDown();
             radioButtonMads = new RadioButton();
             radioButtonMemDump = new RadioButton();
+            labelBytesPerLine = new Label();
+            splitContainerVertical = new SplitContainer();
+            splitContainerHorizontal = new SplitContainer();
+            buttonReload = new Button();
             ((System.ComponentModel.ISupportInitialize)numericUpDownTranspose).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownCut).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownBytesLine).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)splitContainerVertical).BeginInit();
+            splitContainerVertical.Panel1.SuspendLayout();
+            splitContainerVertical.Panel2.SuspendLayout();
+            splitContainerVertical.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainerHorizontal).BeginInit();
+            splitContainerHorizontal.Panel1.SuspendLayout();
+            splitContainerHorizontal.Panel2.SuspendLayout();
+            splitContainerHorizontal.SuspendLayout();
             SuspendLayout();
             // 
             // buttonOpen
             // 
-            buttonOpen.Location = new Point(12, 12);
+            buttonOpen.Location = new Point(14, 12);
             buttonOpen.Name = "buttonOpen";
             buttonOpen.Size = new Size(75, 23);
             buttonOpen.TabIndex = 0;
@@ -60,24 +74,24 @@
             // 
             // textBoxOriginal
             // 
-            textBoxOriginal.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxOriginal.Location = new Point(12, 215);
+            textBoxOriginal.Font = new Font("Consolas", 9F);
+            textBoxOriginal.Location = new Point(14, 215);
             textBoxOriginal.Multiline = true;
             textBoxOriginal.Name = "textBoxOriginal";
             textBoxOriginal.ScrollBars = ScrollBars.Both;
-            textBoxOriginal.Size = new Size(279, 356);
+            textBoxOriginal.Size = new Size(278, 356);
             textBoxOriginal.TabIndex = 1;
             textBoxOriginal.WordWrap = false;
             // 
             // textBoxTransposed
             // 
-            textBoxTransposed.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxTransposed.Location = new Point(296, 15);
-            textBoxTransposed.Multiline = true;
+            textBoxTransposed.Dock = DockStyle.Fill;
+            textBoxTransposed.Font = new Font("Consolas", 9F);
+            textBoxTransposed.Location = new Point(0, 0);
             textBoxTransposed.Name = "textBoxTransposed";
-            textBoxTransposed.ScrollBars = RichTextBoxScrollBars.Both;
-            textBoxTransposed.Size = new Size(791, 194);
+            textBoxTransposed.Size = new Size(831, 363);
             textBoxTransposed.TabIndex = 2;
+            textBoxTransposed.Text = "";
             textBoxTransposed.WordWrap = false;
             // 
             // openFileDialog1
@@ -86,7 +100,7 @@
             // 
             // buttonTranspose
             // 
-            buttonTranspose.Location = new Point(12, 110);
+            buttonTranspose.Location = new Point(14, 110);
             buttonTranspose.Name = "buttonTranspose";
             buttonTranspose.Size = new Size(75, 23);
             buttonTranspose.TabIndex = 3;
@@ -96,7 +110,7 @@
             // 
             // numericUpDownTranspose
             // 
-            numericUpDownTranspose.Location = new Point(120, 110);
+            numericUpDownTranspose.Location = new Point(122, 110);
             numericUpDownTranspose.Name = "numericUpDownTranspose";
             numericUpDownTranspose.Size = new Size(68, 23);
             numericUpDownTranspose.TabIndex = 4;
@@ -105,7 +119,7 @@
             // 
             // buttonCut
             // 
-            buttonCut.Location = new Point(12, 81);
+            buttonCut.Location = new Point(14, 81);
             buttonCut.Name = "buttonCut";
             buttonCut.Size = new Size(75, 23);
             buttonCut.TabIndex = 5;
@@ -115,7 +129,8 @@
             // 
             // numericUpDownCut
             // 
-            numericUpDownCut.Location = new Point(120, 81);
+            numericUpDownCut.Location = new Point(122, 81);
+            numericUpDownCut.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             numericUpDownCut.Name = "numericUpDownCut";
             numericUpDownCut.Size = new Size(68, 23);
             numericUpDownCut.TabIndex = 6;
@@ -124,8 +139,8 @@
             // 
             // textBoxLog
             // 
-            textBoxLog.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxLog.Location = new Point(11, 139);
+            textBoxLog.Font = new Font("Consolas", 9F);
+            textBoxLog.Location = new Point(13, 139);
             textBoxLog.Multiline = true;
             textBoxLog.Name = "textBoxLog";
             textBoxLog.ScrollBars = ScrollBars.Both;
@@ -134,8 +149,8 @@
             // 
             // textBoxChars
             // 
-            textBoxChars.Font = new Font("Consolas", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxChars.Location = new Point(297, 215);
+            textBoxChars.Font = new Font("Consolas", 9F);
+            textBoxChars.Location = new Point(3, 3);
             textBoxChars.Multiline = true;
             textBoxChars.Name = "textBoxChars";
             textBoxChars.ScrollBars = ScrollBars.Both;
@@ -144,7 +159,7 @@
             // 
             // buttonSave
             // 
-            buttonSave.Location = new Point(113, 12);
+            buttonSave.Location = new Point(115, 12);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(75, 23);
             buttonSave.TabIndex = 9;
@@ -152,10 +167,20 @@
             buttonSave.UseVisualStyleBackColor = true;
             buttonSave.Click += ButtonSave_Click;
             // 
+            // numericUpDownBytesLine
+            // 
+            numericUpDownBytesLine.Location = new Point(725, 12);
+            numericUpDownBytesLine.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            numericUpDownBytesLine.Name = "numericUpDownBytesLine";
+            numericUpDownBytesLine.Size = new Size(68, 23);
+            numericUpDownBytesLine.TabIndex = 12;
+            toolTip1.SetToolTip(numericUpDownBytesLine, "bytes to be cut from the beginning of the file");
+            numericUpDownBytesLine.Value = new decimal(new int[] { 16, 0, 0, 0 });
+            // 
             // radioButtonMads
             // 
             radioButtonMads.AutoSize = true;
-            radioButtonMads.Location = new Point(875, 224);
+            radioButtonMads.Location = new Point(475, 12);
             radioButtonMads.Name = "radioButtonMads";
             radioButtonMads.Size = new Size(99, 19);
             radioButtonMads.TabIndex = 10;
@@ -166,7 +191,7 @@
             // 
             radioButtonMemDump.AutoSize = true;
             radioButtonMemDump.Checked = true;
-            radioButtonMemDump.Location = new Point(875, 249);
+            radioButtonMemDump.Location = new Point(475, 37);
             radioButtonMemDump.Name = "radioButtonMemDump";
             radioButtonMemDump.Size = new Size(129, 19);
             radioButtonMemDump.TabIndex = 11;
@@ -174,30 +199,97 @@
             radioButtonMemDump.Text = "Output mem dump";
             radioButtonMemDump.UseVisualStyleBackColor = true;
             // 
+            // labelBytesPerLine
+            // 
+            labelBytesPerLine.AutoSize = true;
+            labelBytesPerLine.Location = new Point(639, 14);
+            labelBytesPerLine.Name = "labelBytesPerLine";
+            labelBytesPerLine.Size = new Size(80, 15);
+            labelBytesPerLine.TabIndex = 13;
+            labelBytesPerLine.Text = "Bytes Per Line";
+            // 
+            // splitContainerVertical
+            // 
+            splitContainerVertical.Dock = DockStyle.Fill;
+            splitContainerVertical.FixedPanel = FixedPanel.Panel1;
+            splitContainerVertical.Location = new Point(0, 0);
+            splitContainerVertical.Name = "splitContainerVertical";
+            // 
+            // splitContainerVertical.Panel1
+            // 
+            splitContainerVertical.Panel1.Controls.Add(buttonReload);
+            splitContainerVertical.Panel1.Controls.Add(buttonSave);
+            splitContainerVertical.Panel1.Controls.Add(buttonOpen);
+            splitContainerVertical.Panel1.Controls.Add(textBoxOriginal);
+            splitContainerVertical.Panel1.Controls.Add(buttonTranspose);
+            splitContainerVertical.Panel1.Controls.Add(numericUpDownTranspose);
+            splitContainerVertical.Panel1.Controls.Add(buttonCut);
+            splitContainerVertical.Panel1.Controls.Add(numericUpDownCut);
+            splitContainerVertical.Panel1.Controls.Add(textBoxLog);
+            // 
+            // splitContainerVertical.Panel2
+            // 
+            splitContainerVertical.Panel2.Controls.Add(splitContainerHorizontal);
+            splitContainerVertical.Size = new Size(1137, 583);
+            splitContainerVertical.SplitterDistance = 302;
+            splitContainerVertical.TabIndex = 15;
+            // 
+            // splitContainerHorizontal
+            // 
+            splitContainerHorizontal.Dock = DockStyle.Fill;
+            splitContainerHorizontal.FixedPanel = FixedPanel.Panel2;
+            splitContainerHorizontal.Location = new Point(0, 0);
+            splitContainerHorizontal.Name = "splitContainerHorizontal";
+            splitContainerHorizontal.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainerHorizontal.Panel1
+            // 
+            splitContainerHorizontal.Panel1.Controls.Add(textBoxTransposed);
+            // 
+            // splitContainerHorizontal.Panel2
+            // 
+            splitContainerHorizontal.Panel2.Controls.Add(textBoxChars);
+            splitContainerHorizontal.Panel2.Controls.Add(labelBytesPerLine);
+            splitContainerHorizontal.Panel2.Controls.Add(radioButtonMads);
+            splitContainerHorizontal.Panel2.Controls.Add(numericUpDownBytesLine);
+            splitContainerHorizontal.Panel2.Controls.Add(radioButtonMemDump);
+            splitContainerHorizontal.Size = new Size(831, 583);
+            splitContainerHorizontal.SplitterDistance = 363;
+            splitContainerHorizontal.TabIndex = 0;
+            // 
+            // buttonReload
+            // 
+            buttonReload.Location = new Point(13, 41);
+            buttonReload.Name = "buttonReload";
+            buttonReload.Size = new Size(75, 23);
+            buttonReload.TabIndex = 10;
+            buttonReload.Text = "Reload";
+            buttonReload.UseVisualStyleBackColor = true;
+            buttonReload.Click += buttonReload_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1143, 607);
-            Controls.Add(radioButtonMemDump);
-            Controls.Add(radioButtonMads);
-            Controls.Add(buttonSave);
-            Controls.Add(textBoxChars);
-            Controls.Add(textBoxLog);
-            Controls.Add(numericUpDownCut);
-            Controls.Add(buttonCut);
-            Controls.Add(numericUpDownTranspose);
-            Controls.Add(buttonTranspose);
-            Controls.Add(textBoxTransposed);
-            Controls.Add(textBoxOriginal);
-            Controls.Add(buttonOpen);
+            ClientSize = new Size(1137, 583);
+            Controls.Add(splitContainerVertical);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)numericUpDownTranspose).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownCut).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownBytesLine).EndInit();
+            splitContainerVertical.Panel1.ResumeLayout(false);
+            splitContainerVertical.Panel1.PerformLayout();
+            splitContainerVertical.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainerVertical).EndInit();
+            splitContainerVertical.ResumeLayout(false);
+            splitContainerHorizontal.Panel1.ResumeLayout(false);
+            splitContainerHorizontal.Panel2.ResumeLayout(false);
+            splitContainerHorizontal.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainerHorizontal).EndInit();
+            splitContainerHorizontal.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -217,5 +309,11 @@
         private ToolTip toolTip1;
         private RadioButton radioButtonMads;
         private RadioButton radioButtonMemDump;
+        private NumericUpDown numericUpDownBytesLine;
+        private Label labelBytesPerLine;
+        private TableLayoutPanel tableLayoutPanel1;
+        private SplitContainer splitContainerVertical;
+        private SplitContainer splitContainerHorizontal;
+        private Button buttonReload;
     }
 }

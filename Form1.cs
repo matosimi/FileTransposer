@@ -51,14 +51,14 @@ namespace FileTransposer
                 for (int i = 2; i < hexspace.Length; i += 2)
                     hexspace = hexspace.Insert(i++, " ");
 
-                output += $"{(line * 16):X4}: {hexspace}" + Environment.NewLine;
+                output += $"{(line * 8):X4}: {hexspace}" + Environment.NewLine;
             }
             textBoxOriginal.Text = output;
         }
 
         private void UpdateTitle()
         {
-            this.Text = $"FileTransposer 0.1 by MatoSimi 16.3.2023 - {openFileDialog1.FileName} - {data.Length}(${data.Length:X4}) bytes";
+            this.Text = $"FileTransposer 0.2 by MatoSimi 13.4.2024 - {openFileDialog1.FileName} - {data.Length}(${data.Length:X4}) bytes";
         }
 
         private void ButtonCut_Click(object sender, EventArgs e)
@@ -107,12 +107,13 @@ namespace FileTransposer
                 }
                 else
                 {
-                    for (int j = 0; j < output[line].Length/16/3; j++)
+                    int bytesPerLine = (int)numericUpDownBytesLine.Value;
+                    for (int j = 0; j < output[line].Length / bytesPerLine / 4; j++)
                     {
                         if (j == 0)
-                            textBoxTransposed.Text += $"group{line}\tdta {output[line].Substring(0,16*3-1).Replace(' ',',')}{Environment.NewLine}";
+                            textBoxTransposed.Text += $"group{line}\tdta {output[line].Substring(0, bytesPerLine * 4 - 1).Replace(' ', ',')}{Environment.NewLine}";
                         else
-                            textBoxTransposed.Text += $"\tdta {output[line].Substring(j*16*3, 16 * 3-1).Replace(' ', ',')}" + (j == 0 ? $"\t;{length:X4}" : "") + $"{Environment.NewLine}";
+                            textBoxTransposed.Text += $"\tdta {output[line].Substring(j * bytesPerLine * 4, bytesPerLine * 4 - 1).Replace(' ', ',')}" + (j == 0 ? $"\t;{length:X4}" : "") + $"{Environment.NewLine}";
                     }
                 }
                 length += (int)(data.Length / frameSize);
@@ -126,6 +127,16 @@ namespace FileTransposer
             {
                 File.WriteAllBytes(saveFileDialog1.FileName, transposedData);
                 textBoxLog.Text = $"File {saveFileDialog1.FileName} saved.";
+            }
+        }
+
+        private void buttonReload_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.FileName != "noFile")
+            {
+                data = File.ReadAllBytes(openFileDialog1.FileName);
+                PrintOriginal();
+                UpdateTitle();
             }
         }
     }
